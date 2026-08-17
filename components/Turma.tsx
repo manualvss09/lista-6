@@ -131,21 +131,21 @@ export default function Turma() {
                   </div>
                 </div>
 
-                <div className="mt-5 flex gap-2">
-                  {[1, 2, 3].map((n) => (
-                    <button
-                      key={n}
-                      onClick={() => setId(n)}
-                      className={`rounded-lg px-4 py-2 text-sm font-medium transition ${
-                        id === n
-                          ? "bg-blue-600 text-white shadow"
-                          : "bg-white text-slate-600 hover:bg-blue-100"
-                      }`}
-                    >
-                      Aluno {n}
-                    </button>
-                  ))}
-                </div>
+                <div className="mt-5 flex gap-2 overflow-x-auto pb-2">
+   {turma.map((a) => (
+    <button
+      key={a.id}
+      onClick={() => setId(a.id)}
+      className={`min-w-fit rounded-lg px-4 py-2 text-sm font-medium transition ${
+        id === a.id
+          ? "bg-blue-600 text-white shadow"
+          : "bg-white text-slate-600 hover:bg-blue-100"
+      }`}
+    >
+      {a.nome}
+    </button>
+  ))}
+</div>
               </div>
             </section>
 
