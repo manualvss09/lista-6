@@ -11,26 +11,29 @@ export default function Turma() {
   const [aluno, setAluno] = useState<Aluno | null>(null);
   const [cursoSelecionado, setCursoSelecionado] = useState("todos");
 
-  async function carregar() {
-    try {
-      setCarregando(true);
-      setErro(null);
-      setTurma(await getTurma());
-    } catch {
-      setErro("Falha ao carregar");
-    } finally {
-      setCarregando(false);
-    }
+ async function carregar() {
+  try {
+    setCarregando(true);
+    setErro(null);
+    setTurma(await getTurma());
+  } catch {
+    setErro("Falha ao carregar");
+  } finally {
+    setCarregando(false);
   }
+}
 
-  useEffect(() => {
+useEffect(() => {
+  const timer = setTimeout(() => {
     carregar();
-  }, []);
+  }, 0);
 
-  useEffect(() => {
-    getAluno(id).then(setAluno).catch(() => setAluno(null));
-  }, [id]);
+  return () => clearTimeout(timer);
+}, []);
 
+useEffect(() => {
+  getAluno(id).then(setAluno).catch(() => setAluno(null));
+}, [id]);
   const presentes = turma.filter((a) => a.presente);
   const ordenada = [...turma].sort((a, b) => b.nota - a.nota);
   const media = turma.length
